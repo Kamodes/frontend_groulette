@@ -15,8 +15,12 @@ const Roulette = () => {
     "カフェテリアルネ",
   ]);
   return (
-    <div className="flex flex-row">
-      <FoodItem storeName={"あくた川"} />;
+    <div>
+      <div className="flex flex-wrap">
+        {foodList.map((value, index) => {
+          return <FoodItem key={index} storeName={value} />;
+        })}
+      </div>
     </div>
   );
 };
