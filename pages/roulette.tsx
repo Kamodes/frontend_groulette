@@ -14,11 +14,18 @@ const Roulette = () => {
     "さわやか",
     "カフェテリアルネ",
   ]);
+  const [lightedItem, setLightedItem] = useState<number>(0);
   return (
     <div className="my-0">
       <div className="flex flex-wrap">
         {foodList.map((value, index) => {
-          return <FoodItem key={index} storeName={value} />;
+          return (
+            <FoodItem
+              key={index}
+              storeName={value}
+              isLighted={index === lightedItem}
+            />
+          );
         })}
       </div>
     </div>
