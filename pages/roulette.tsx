@@ -1,12 +1,8 @@
-import { useState } from "react";
+import { ReactChild, ReactFragment, SetStateAction, useEffect, useState } from "react";
 import FoodItem from "../components/foodItem";
 
-/*
-function print(){
-  console.log(count)
-}
-*/
-//setInterval(print, 200)
+
+const arr1 = [0];
 
 const Roulette = () => {
   const [foodList, setFoodList] = useState<string[]>([
@@ -23,23 +19,23 @@ const Roulette = () => {
   ]);
   const [lightedItem, setLightedItem] = useState<number>(0);
 
-  let count = 0;
-  function randnum(){
-    const randnum = Math.floor( Math.random() * 10 );
-    count = randnum
-    setLightedItem(count)
-  }
-  setInterval(randnum, 1000)
-
-  // const countUp = () =>{
-  //   console.log(count++);
+  // const onClickButton = () => {
+  //   setLightedItem(lightedItem + 1);
   // }
-  // const intervalId = setInterval(() =>{
-  //   countUp();
-  //   if(count > 5){　
-  //     clearInterval(intervalId);　//intervalIdをclearIntervalで指定している
-  //   }}, 1000);
 
+  useEffect(() => {
+    for (var i = 0; i < 30; i++) {
+      const randnum = Math.floor(Math.random() * 10);
+      arr1.push(randnum)
+    }
+  }, [])
+
+  useEffect(() => {
+    setLightedItem(arr1[0]);
+  }, [])
+
+  console.log("arr1:" + arr1)
+  console.log("lightedItem:" + lightedItem)
   return (
     <div className="my-0">
       <div className="flex flex-wrap">
@@ -53,8 +49,22 @@ const Roulette = () => {
           );
         })}
       </div>
+      {/* {/* <button onClick={onClickButton}>Roulette Start!</button> */}
     </div>
   );
 };
 
 export default Roulette;
+
+
+/*
+  let count = 0;
+  function randnum(){
+    const randnum = Math.floor( Math.random() * 10 );
+    count = randnum
+    setLightedItem(count)
+  }
+*/
+  // setInterval(randnum, 1000)
+
+  //<p style={{ fontSize: "40px", marginLeft: "20px"}}>arr1[count]: {arr1[count]}</p>
