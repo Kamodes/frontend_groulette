@@ -179,6 +179,9 @@ export default function ButtonBases() {
       /*window.alert("Now selected genre: \n" + printStr); */
     }
   };
+  const onModeSelect = (mode: string) => {
+    console.log(mode);
+  };
   return (
     <Box
       sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%" }}
@@ -262,7 +265,7 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
-          onClick={() => window.alert(image.title + " mode is selected!")}
+          onClick={() => onModeSelect(image.title)}
         >
           <ImageSrc
             className="MuiImageSrc-root"
