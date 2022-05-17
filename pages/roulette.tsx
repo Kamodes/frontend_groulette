@@ -1,9 +1,8 @@
 import { ReactChild, ReactFragment, SetStateAction, useEffect, useState } from "react";
 import FoodItem from "../components/foodItem";
 
-
 const arr1 = [0];
-
+var index = 0
 const Roulette = () => {
   const [foodList, setFoodList] = useState<string[]>([
     "あくた川",
@@ -24,18 +23,28 @@ const Roulette = () => {
   // }
 
   useEffect(() => {
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 3000; i++) {
       const randnum = Math.floor(Math.random() * 10);
       arr1.push(randnum)
     }
   }, [])
 
+  const lightedItemChange = () => {
+    index += 1
+    setLightedItem(arr1[index]);
+  }
+
   useEffect(() => {
-    setLightedItem(arr1[0]);
+    setInterval(lightedItemChange, 100)
   }, [])
 
-  console.log("arr1:" + arr1)
+  /*
+  var intervalID = setInterval(lightedItemChange, 1000)
+  clearInterval(intervalID)
+  */
+
   console.log("lightedItem:" + lightedItem)
+
   return (
     <div className="my-0">
       <div className="flex flex-wrap">
@@ -57,14 +66,10 @@ const Roulette = () => {
 export default Roulette;
 
 
-/*
-  let count = 0;
-  function randnum(){
-    const randnum = Math.floor( Math.random() * 10 );
-    count = randnum
-    setLightedItem(count)
-  }
-*/
-  // setInterval(randnum, 1000)
-
   //<p style={{ fontSize: "40px", marginLeft: "20px"}}>arr1[count]: {arr1[count]}</p>
+
+/*
+git add .
+git commit -m "message"
+git push
+*/

@@ -17,17 +17,6 @@ const Roulette = () => {
   ]);
   const [lightedItem, setLightedItem] = useState<number>(0);
 
-  /*
-  //0~10までのランダムな数を返す
-  let count = 0;
-  function randnum(){
-    const randnum = Math.floor( Math.random() * 10 );
-    count = randnum
-    setLightedItem(count)
-  }
-  setInterval(randnum, 1000)
-*/
-
   return (
     <div className="my-0">
       <div className="flex flex-wrap">
@@ -46,10 +35,3 @@ const Roulette = () => {
 };
 
 export default Roulette;
-
-/*
-npm start
-git add
-git commit -m"message"
-git push
-*/
