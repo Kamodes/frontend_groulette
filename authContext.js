@@ -9,8 +9,11 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState('');
+  const [restaurantList, setRestaurantList] = useState([])
   const value = {
     user,
+    restaurantList,
+    setRestaurantList,
   };
 
   useEffect(() => {
