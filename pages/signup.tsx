@@ -6,7 +6,7 @@ const SignUp = () => {
     event.preventDefault();
     const { email, password } = event.target.elements;
     auth.createUserWithEmailAndPassword(email.value, password.value);
-    console.log("サインアップ");
+    console.log("サインin");
   };
 
   return (
