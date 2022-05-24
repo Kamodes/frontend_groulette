@@ -1,9 +1,18 @@
-import { ReactChild, ReactFragment, SetStateAction, useEffect, useState } from "react";
+import {
+  ReactChild,
+  ReactFragment,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import FoodItem from "../components/foodItem";
+import { useAuthContext } from "../authContext";
 
 const arr1 = [0];
-var index = 0
+var index = 0;
 const Roulette = () => {
+  const { user } = useAuthContext();
+  console.log(user);
   const [foodList, setFoodList] = useState<string[]>([
     "あくた川",
     "ハイライト",
@@ -25,25 +34,25 @@ const Roulette = () => {
   useEffect(() => {
     for (var i = 0; i < 3000; i++) {
       const randnum = Math.floor(Math.random() * 10);
-      arr1.push(randnum)
+      arr1.push(randnum);
     }
-  }, [])
+  }, []);
 
   const lightedItemChange = () => {
-    index += 1
+    index += 1;
     setLightedItem(arr1[index]);
-  }
+  };
 
   useEffect(() => {
-    setInterval(lightedItemChange, 100)
-  }, [])
+    setInterval(lightedItemChange, 100);
+  }, []);
 
   /*
   var intervalID = setInterval(lightedItemChange, 1000)
   clearInterval(intervalID)
   */
 
-  console.log("lightedItem:" + lightedItem)
+  console.log("lightedItem:" + lightedItem);
 
   return (
     <div className="my-0">
@@ -65,8 +74,7 @@ const Roulette = () => {
 
 export default Roulette;
 
-
-  //<p style={{ fontSize: "40px", marginLeft: "20px"}}>arr1[count]: {arr1[count]}</p>
+//<p style={{ fontSize: "40px", marginLeft: "20px"}}>arr1[count]: {arr1[count]}</p>
 
 /*
 git add .
