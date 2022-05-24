@@ -113,6 +113,10 @@ const imageAssign = (n: string, j: string) => {
   return img;
 };
 
+const buttonImg = [
+  { url: "img/rouletteStart.png", title: "Start", width: "20%" },
+];
+
 // BackEndからお店のリストとジャンルを受け取る
 const candList = [
   ["すき家", "Gyudon"],
@@ -220,6 +224,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
 }));
 
 export default function ButtonBases() {
+  const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
   //クリックハンドラー
@@ -247,105 +252,200 @@ export default function ButtonBases() {
   };
   // 最大候補数を渡す
   const maxind = 15; ///暫定
-  return rest_cand.map((image, index) => (
-    <Box
-      sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%" }}
-      key={index}
-    >
-      {/* 最初の候補10個 */}
-      <ImageButton
-        disableRipple
-        key={image.title}
-        style={{
-          width: 500,
-        }}
-      >
-        <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-        <ImageBackdrop
-          className="MuiImageBackdrop-root"
-          style={{
-            opacity: clickedIndList.includes(index) ? 0.5 : 0.05,
-            backgroundColor: clickedIndList.includes(index)
-              ? "#000000"
-              : "#ffffff",
+  return (
+    <>
+      {rest_cand.map((image, index) => (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            minWidth: 300,
+            width: "100%",
           }}
-        />
-        <Image>
-          <Typography
-            component="span"
-            variant="h5"
-            color="black"
-            sx={{
-              position: "relative",
-              p: 4,
-              pt: 2,
-              pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+          key={index}
+        >
+          {/* 最初の候補10個 */}
+          <ImageButton
+            disableRipple
+            key={image.title}
+            style={{
+              width: 500,
             }}
           >
-            {image.title}
-          </Typography>
-        </Image>
-      </ImageButton>
-      <Button
-        variant="outlined"
-        style={{
-          color: "#ffffff",
-          backgroundColor:
-            clickedIndList.includes(index) && !clickedSNIndList.includes(index)
-              ? "#A88000"
-              : "#ffcc00",
-          borderColor:
-            clickedIndList.includes(index) && !clickedSNIndList.includes(index)
-              ? "#A88000"
-              : "#ffcc00",
-        }}
-        onClick={() => onClickHandler(index)}
-      >
-        Nope
-      </Button>
-      <Button
-        variant="outlined"
-        style={{
-          color: "#ffffff",
-          backgroundColor:
-            clickedIndList.includes(index) && clickedSNIndList.includes(index)
-              ? "#A00000"
-              : "#cc0000",
-          borderColor:
-            clickedIndList.includes(index) && clickedSNIndList.includes(index)
-              ? "#a00000"
-              : "#cc0000",
-        }}
-        onClick={() => onSNClickHandler(index)}
-      >
-        Super Nope
-      </Button>
+            <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+            <ImageBackdrop
+              className="MuiImageBackdrop-root"
+              style={{
+                opacity: clickedIndList.includes(index) ? 0.5 : 0.05,
+                backgroundColor: clickedIndList.includes(index)
+                  ? "#000000"
+                  : "#ffffff",
+              }}
+            />
+            <Image>
+              <Typography
+                component="span"
+                variant="h5"
+                color="black"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                {image.title}
+              </Typography>
+            </Image>
+          </ImageButton>
+          <Button
+            variant="outlined"
+            style={{
+              color: "#ffffff",
+              backgroundColor:
+                clickedIndList.includes(index) &&
+                !clickedSNIndList.includes(index)
+                  ? "#A88000"
+                  : "#ffcc00",
+              borderColor:
+                clickedIndList.includes(index) &&
+                !clickedSNIndList.includes(index)
+                  ? "#A88000"
+                  : "#ffcc00",
+            }}
+            onClick={() => onClickHandler(index)}
+          >
+            Nope
+          </Button>
+          <Button
+            variant="outlined"
+            style={{
+              color: "#ffffff",
+              backgroundColor:
+                clickedIndList.includes(index) &&
+                clickedSNIndList.includes(index)
+                  ? "#A00000"
+                  : "#cc0000",
+              borderColor:
+                clickedIndList.includes(index) &&
+                clickedSNIndList.includes(index)
+                  ? "#a00000"
+                  : "#cc0000",
+            }}
+            onClick={() => onSNClickHandler(index)}
+          >
+            Super Nope
+          </Button>
 
-      {/* サブの候補10個 */}
+          {/* サブの候補10個 */}
+          <ImageButton
+            disableRipple
+            key={sub_rest_cand[index].title}
+            style={{
+              width: 500,
+            }}
+          >
+            <ImageSrc
+              style={{ backgroundImage: `url(${sub_rest_cand[index].url})` }}
+            />
+            <ImageBackdrop
+              className="MuiImageBackdrop-root"
+              style={{
+                opacity:
+                  !clickedIndList.includes(index + 10) &&
+                  index < clickedIndList.length
+                    ? 0.05
+                    : 0.5,
+                backgroundColor:
+                  !clickedIndList.includes(index + 10) &&
+                  index < clickedIndList.length
+                    ? "#ffffff" //"#00ff00"
+                    : "#000000",
+              }}
+            />
+            <Image>
+              <Typography
+                component="span"
+                variant="h5"
+                color="black"
+                sx={{
+                  position: "relative",
+                  p: 4,
+                  pt: 2,
+                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+              >
+                {sub_rest_cand[index].title}
+              </Typography>
+            </Image>
+          </ImageButton>
+          <Button
+            variant="outlined"
+            style={{
+              color: "#ffffff",
+              backgroundColor:
+                clickedIndList.includes(index + 10) &&
+                !clickedSNIndList.includes(index + 10)
+                  ? "#A88000"
+                  : "#ffcc00",
+              borderColor:
+                clickedIndList.includes(index + 10) &&
+                !clickedSNIndList.includes(index + 10)
+                  ? "#A88000"
+                  : "#ffcc00",
+            }}
+            onClick={() =>
+              index < clickedIndList.length
+                ? onClickHandler(index + 10)
+                : console.log("out of indx")
+            }
+          >
+            Nope
+          </Button>
+          <Button
+            variant="outlined"
+            style={{
+              color: "#ffffff",
+              backgroundColor:
+                clickedIndList.includes(index + 10) &&
+                clickedSNIndList.includes(index + 10)
+                  ? "#A00000"
+                  : "#cc0000",
+              borderColor:
+                clickedIndList.includes(index + 10) &&
+                clickedSNIndList.includes(index + 10)
+                  ? "#a00000"
+                  : "#cc0000",
+            }}
+            onClick={() =>
+              index < clickedIndList.length
+                ? onSNClickHandler(index + 10)
+                : console.log("out of indx")
+            }
+          >
+            Super Nope
+          </Button>
+        </Box>
+      ))}
       <ImageButton
-        disableRipple
-        key={sub_rest_cand[index].title}
+        focusRipple
+        key={buttonImg[0].title}
         style={{
-          width: 500,
+          height: 200,
+          width: buttonImg[0].width,
         }}
+        onClick={() => router.push("/roulette")}
       >
         <ImageSrc
-          style={{ backgroundImage: `url(${sub_rest_cand[index].url})` }}
+          style={{
+            backgroundImage: `url(${buttonImg[0].url})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+          }}
         />
         <ImageBackdrop
           className="MuiImageBackdrop-root"
-          style={{
-            opacity:
-              !clickedIndList.includes(index + 10) &&
-              index < clickedIndList.length
-                ? 0.05
-                : 0.5,
-            backgroundColor:
-              !clickedIndList.includes(index + 10) &&
-              index < clickedIndList.length
-                ? "#ffffff" //"#00ff00"
-                : "#000000",
-          }}
+          style={{ opacity: 0 }}
         />
         <Image>
           <Typography
@@ -359,56 +459,10 @@ export default function ButtonBases() {
               pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
             }}
           >
-            {sub_rest_cand[index].title}
+            {""}
           </Typography>
         </Image>
       </ImageButton>
-      <Button
-        variant="outlined"
-        style={{
-          color: "#ffffff",
-          backgroundColor:
-            clickedIndList.includes(index + 10) &&
-            !clickedSNIndList.includes(index + 10)
-              ? "#A88000"
-              : "#ffcc00",
-          borderColor:
-            clickedIndList.includes(index + 10) &&
-            !clickedSNIndList.includes(index + 10)
-              ? "#A88000"
-              : "#ffcc00",
-        }}
-        onClick={() =>
-          index < clickedIndList.length
-            ? onClickHandler(index + 10)
-            : console.log("out of indx")
-        }
-      >
-        Nope
-      </Button>
-      <Button
-        variant="outlined"
-        style={{
-          color: "#ffffff",
-          backgroundColor:
-            clickedIndList.includes(index + 10) &&
-            clickedSNIndList.includes(index + 10)
-              ? "#A00000"
-              : "#cc0000",
-          borderColor:
-            clickedIndList.includes(index + 10) &&
-            clickedSNIndList.includes(index + 10)
-              ? "#a00000"
-              : "#cc0000",
-        }}
-        onClick={() =>
-          index < clickedIndList.length
-            ? onSNClickHandler(index + 10)
-            : console.log("out of indx")
-        }
-      >
-        Super Nope
-      </Button>
-    </Box>
-  ));
+    </>
+  );
 }
