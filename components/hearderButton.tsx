@@ -8,7 +8,7 @@ export const HeaderButton = (props: { label: string }) => {
       return "/signin";
     } else if (props.label == "ログアウト") {
       auth.signOut();
-      return "/choice3";
+      return "/choice";
     } else {
       return "/signup";
     }

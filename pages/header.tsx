@@ -6,17 +6,16 @@ export const Header = () => {
   const isSignUp = (user: any) => {
     if (!user) {
       return <HeaderButton label="新規登録" />;
-    } else {
-      return <HeaderButton label="" />;
     }
+    return <p className="mt-6">{user.email}様こんにちは！</p>;
   };
   return (
     <div className="flex bg-blue-300">
-      <div className="basis-1/2"></div>
-      <div className="flex-row">
+      <div className="basis-1/3"></div>
+      <div className="flex flex-row">
         {isSignUp(user)}
-        <HeaderButton label="このサイトについて" />
         <HeaderButton label={user ? "ログアウト" : "ログイン"} />
+        <HeaderButton label="このサイトについて" />
       </div>
     </div>
   );
