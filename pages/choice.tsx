@@ -205,7 +205,11 @@ export default function ButtonBases() {
       });
     */
     }
-    router.push("/list");
+    if (clickedList.length > 0) {
+      router.push("/list");
+    } else {
+      window.alert("Please select one or more genres.");
+    }
   };
   return (
     <Box
