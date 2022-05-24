@@ -1,17 +1,16 @@
-import { useRef } from "react";
 import { auth } from "../firebase";
 
-const SignUp = () => {
+const Login = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-    auth.createUserWithEmailAndPassword(email.value, password.value);
-    console.log("サインアップ");
+    auth.signInWithEmailAndPassword(email.value, password.value);
+    console.log("ログイン");
   };
 
   return (
     <div>
-      <h1>ユーザ登録</h1>
+      <h1>ログイン</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>メールアドレス</label>
@@ -22,11 +21,14 @@ const SignUp = () => {
           <input name="password" type="password" placeholder="password" />
         </div>
         <div>
-          <button>登録</button>
+          <button>ログイン</button>
         </div>
+        {/* <div>
+          ユーザ登録は<Link to={"/signup"}>こちら</Link>から
+        </div> */}
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;
