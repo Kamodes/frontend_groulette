@@ -124,7 +124,7 @@ const Roulette = () => {
             return (
               <FoodItem
                 key={index}
-                storeName={value}
+                storeName={value[1]}
                 isLighted={index === lightedItem}
               />
             );
