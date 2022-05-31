@@ -93,18 +93,16 @@ const candList = [
 ];
 
 const subcandList = [
-
-  ["ラジュ", "Curry"],
-  ["サコブーン", "Japanese"],
-  ["鳥貴族", "Others"],
-  ["ハイライト", "Japanese"],
-  ["松之助", "Japanese"],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-
+  ["aaaaa", "ラジュ", 5],
+  ["aaaaa", "サコブーン", 4],
+  ["aaaaa", "鳥貴族", 6],
+  ["aaaaa", "ハイライト", 4],
+  ["aaaaa", "松之助", 4],
+  ["aaaaa", "里乃屋", 1],
+  ["aaaaa", "旅の音", 7],
+  [""],
+  [""],
+  [""],
 ];
 
 var rest_cand = [];
@@ -216,12 +214,13 @@ export default function ButtonBases() {
 
     var tempIDList: string[] = [];
     var tempNameList: string[] = [];
-
-    for (var j = 0; j < clickedIndList.length; j++) {
-      db.collection("user").add({
-        email: user.email,
-        resname: candList[clickedIndList[j]][0],
-      });
+    if (user) {
+      for (var j = 0; j < clickedIndList.length; j++) {
+        db.collection("user").add({
+          email: user.email,
+          resname: candList[clickedIndList[j]][1],
+        });
+      }
     }
 
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
@@ -247,7 +246,6 @@ export default function ButtonBases() {
     //console.log(restaurantList);
     //console.log(restaurantIDList);
     router.push("/roulette");
-
   };
   return (
     <>
