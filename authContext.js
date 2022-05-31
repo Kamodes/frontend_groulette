@@ -1,5 +1,5 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import { auth } from './firebase';
+import { createContext, useState, useContext, useEffect } from "react";
+import { auth } from "./firebase";
 
 const AuthContext = createContext();
 
@@ -8,8 +8,8 @@ export function useAuthContext() {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState('');
-  const [restaurantList, setRestaurantList] = useState([])
+  const [user, setUser] = useState("");
+  const [restaurantList, setRestaurantList] = useState([]);
   const value = {
     user,
     restaurantList,

@@ -6,6 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
+import { useAuthContext } from "../authContext";
 
 // 画像の配置
 // %で幅の割合を指定
@@ -224,6 +225,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
 }));
 
 export default function ButtonBases() {
+  const { restaurantList, setRestaurantList } = useAuthContext();
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
@@ -252,6 +254,30 @@ export default function ButtonBases() {
   };
   // 最大候補数を渡す
   const maxind = 15; ///暫定
+
+  // 次回検討
+  const startHandler = () => {
+    //setTempRestaurantList(["aa"]);
+    var tempList: string[] = [];
+    for (var i = 0; i < 10 + clickedIndList.length; i++) {
+      if (!clickedIndList.includes(i)) {
+        console.log(i);
+        if (i < 10) {
+          console.log(candList[i][0]);
+          tempList.push(candList[i][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, candList[i][0]]);
+        } else {
+          tempList.push(subcandList[i - 10][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
+        }
+      }
+    }
+    setRestaurantList(tempList);
+    console.log(restaurantList);
+    router.push("/roulette");
+  };
   return (
     <>
       {rest_cand.map((image, index) => (
@@ -434,7 +460,7 @@ export default function ButtonBases() {
           height: 200,
           width: buttonImg[0].width,
         }}
-        onClick={() => router.push("/roulette")}
+        onClick={() => startHandler()}
       >
         <ImageSrc
           style={{
