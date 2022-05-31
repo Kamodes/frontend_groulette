@@ -9,52 +9,58 @@ import { Button } from "@mui/material";
 import { useAuthContext } from "../authContext";
 import { db } from "../firebase";
 
-const imageAssign = (n: string, j: string) => {
-  if (j == "Gyudon") {
+const imageAssign = (n: string, j: number) => {
+  if (j == 4) {
     var img = {
-      url: "/img/food_gyudon.png",
+      url: "/img/list_icon/japanese.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Hamburger") {
+  } else if (j == 3) {
     var img = {
-      url: "/img/food_hamburger_cheese.png",
+      url: "/img/list_icon/fastfood.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Ramen") {
+  } else if (j == 2) {
     var img = {
-      url: "/img/food_ramen_iekei.png",
+      url: "/img/list_icon/ramen.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Pasta") {
+  } else if (j == 5) {
     var img = {
-      url: "/img/food_spaghetti_vongole_bianco.png",
+      url: "/img/list_icon/youshoku.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Chinese") {
+  } else if (j == 0) {
     var img = {
-      url: "img/food_subuta.png",
+      url: "img/list_icon/chinese.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Japanese") {
+  } else if (j == 1) {
     var img = {
-      url: "img/teisyoku_haizen.png",
+      url: "img/list_icon/yakiniku.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Curry") {
+  } else if (j == 6) {
     var img = {
-      url: "img/vegetable_curry.png",
+      url: "img/list_icon/izakaya.png",
+      title: n,
+      width: "40%",
+    };
+  } else if (j == 7) {
+    var img = {
+      url: "img/list_icon/others.png",
       title: n,
       width: "40%",
     };
   } else {
     var img = {
-      url: "img/nomikai_salaryman.png",
+      url: "img/list_icon/none.png",
       title: n,
       width: "40%",
     };
@@ -67,20 +73,27 @@ const buttonImg = [
 ];
 
 // BackEndからお店のリストとジャンルを受け取る
+// 以下テスト用の暫定コード
+
+// 最大候補数を渡す
+const maxind = 17;
+
 const candList = [
-  ["すき家", "Gyudon"],
-  ["マクドナルド", "Hamburger"],
-  ["吉野家", "Gyudon"],
-  ["あくた川", "Ramen"],
-  ["キラメキ☆JAPAN", "Ramen"],
-  ["ジェームズキッチン", "others"],
-  ["チャンピオンカレー", "Curry"],
-  ["凛屋", "Pasta"],
-  ["火楓源", "Chinese"],
-  ["ケンタッキー", "Hamburger"],
+  // [id,name,genre]
+  ["aaaaa", "すき家", 4],
+  ["aaaaa", "マクドナルド", 3],
+  ["aaaaa", "吉野家", 4],
+  ["aaaaa", "あくた川", 2],
+  ["aaaaa", "キラメキ☆JAPAN", 2],
+  ["aaaaa", "ジェームズキッチン", 5],
+  ["aaaaa", "チャンピオンカレー", 5],
+  ["aaaaa", "凛屋", 5],
+  ["aaaaa", "火楓源", 0],
+  ["aaaaa", "ケンタッキー", 3],
 ];
 
 const subcandList = [
+
   ["ラジュ", "Curry"],
   ["サコブーン", "Japanese"],
   ["鳥貴族", "Others"],
@@ -91,14 +104,15 @@ const subcandList = [
   ["", ""],
   ["", ""],
   ["", ""],
+
 ];
 
 var rest_cand = [];
-candList.map((cand, index) => rest_cand.push(imageAssign(cand[0], cand[1])));
+candList.map((cand, index) => rest_cand.push(imageAssign(cand[1], cand[2])));
 
 var sub_rest_cand = [];
 subcandList.map((cand, index) =>
-  sub_rest_cand.push(imageAssign(cand[0], cand[1]))
+  sub_rest_cand.push(imageAssign(cand[1], cand[2]))
 );
 
 // イメージつきボタンの設定
@@ -167,6 +181,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
 
 export default function ButtonBases() {
   const { restaurantList, setRestaurantList } = useAuthContext();
+  const { restaurantIDList, setRestaurantIDList } = useAuthContext();
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
@@ -194,37 +209,45 @@ export default function ButtonBases() {
       window.alert("No more candidates can be deleted.");
     }
   };
-  // 最大候補数を渡す
-  const maxind = 15; ///暫定
 
   // 次回検討
   const startHandler = () => {
     //setTempRestaurantList(["aa"]);
-    var tempList: string[] = [];
+
+    var tempIDList: string[] = [];
+    var tempNameList: string[] = [];
+
     for (var j = 0; j < clickedIndList.length; j++) {
       db.collection("user").add({
         email: user.email,
         resname: candList[clickedIndList[j]][0],
       });
     }
+
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
       if (!clickedIndList.includes(i)) {
         console.log(i);
         if (i < 10) {
-          console.log(candList[i][0]);
-          tempList.push(candList[i][0]);
-          console.log(tempList);
+          //console.log(candList[i][1]);
+          tempIDList.push(candList[i][0]);
+          tempNameList.push(candList[i][1]);
+          //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempList.push(subcandList[i - 10][0]);
-          console.log(tempList);
+          tempIDList.push(candList[i - 10][0]);
+          tempNameList.push(subcandList[i - 10][1]);
+          //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
       }
     }
-    setRestaurantList(tempList);
-    console.log(restaurantList);
-    //router.push("/roulette");
+
+    setRestaurantList(tempNameList);
+    setRestaurantIDList(tempIDList);
+    //console.log(restaurantList);
+    //console.log(restaurantIDList);
+    router.push("/roulette");
+
   };
   return (
     <>

@@ -115,6 +115,7 @@ const Roulette = () => {
   };
 
   const { restaurantList, setRestaurantList } = useAuthContext();
+  const { restaurantIDList, setRestaurantIDList } = useAuthContext();
 
   //ページ遷移
   const handler = (path: string) => {
@@ -127,6 +128,7 @@ const Roulette = () => {
   return (
     <>
       {console.log("now selected: " + restaurantList)}
+      {console.log("now selected ID: " + restaurantIDList)}
       <div className="my-0">
         <div className="flex flex-wrap">
           {foodList.map((value, index) => {
