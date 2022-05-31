@@ -118,7 +118,6 @@ const Roulette = () => {
   return (
     <>
       {console.log("now selected: " + restaurantList)}
-      {console.log("now selected ID: " + restaurantIDList)}
       <div className="my-0">
         <div className="flex flex-wrap">
           {foodList.map((value, index) => {
