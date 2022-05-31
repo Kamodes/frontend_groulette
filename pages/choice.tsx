@@ -197,21 +197,19 @@ export default function ButtonBases() {
         url_str = url_str + value;
       });
       url_str = url_str + "&mode=" + mode;
-      /*
-    axios
-      .get(url_str)
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-    */
+      axios
+        .get(url_str)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
     }
     console.log(url_str);
     if (clickedList.length > 0) {
