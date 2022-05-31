@@ -142,7 +142,7 @@ const Roulette = () => {
             Groulette Start!
           </button>
           <button
-            onClick={() => restrauntDisplay()}
+            onClick={() => restaurantDisplay()}
             className="mx-8 my-5 flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
           >
             レストランの情報はこちら

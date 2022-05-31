@@ -215,10 +215,10 @@ export default function ButtonBases() {
     var tempIDList: string[] = [];
     var tempNameList: string[] = [];
     if (user) {
-      for (var j = 0; j < clickedIndList.length; j++) {
+      for (var j = 0; j < clickedSNIndList.length; j++) {
         db.collection("user").add({
           email: user.email,
-          resname: candList[clickedIndList[j]][1],
+          resname: candList[clickedSNIndList[j]],
         });
       }
     }
