@@ -16,6 +16,7 @@ export const Header = () => {
         {isSignUp(user)}
         <HeaderButton label={user ? "ログアウト" : "ログイン"} />
         <HeaderButton label="このサイトについて" />
+        <HeaderButton label="嫌いな店リスト" />
       </div>
     </div>
   );
