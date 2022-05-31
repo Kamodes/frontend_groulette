@@ -222,7 +222,7 @@ export default function ButtonBases() {
       for (var j = 0; j < SNList.length; j++) {
         db.collection("user").add({
           email: user.email,
-          resname: candList[SNList[j]],
+          resname: SNList[j],
         });
       }
     }
@@ -237,7 +237,7 @@ export default function ButtonBases() {
           //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempIDList.push(candList[i - 10][0]);
+          tempIDList.push(subcandList[i - 10][0]);
           tempNameList.push(subcandList[i - 10][1]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
@@ -247,7 +247,7 @@ export default function ButtonBases() {
 
     setRestaurantList(tempNameList);
     setRestaurantIDList(tempIDList);
-    console.log(clickedSNIDList);
+    console.log(SNList);
     //console.log(restaurantList);
     //console.log(restaurantIDList);
     router.push("/roulette");
