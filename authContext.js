@@ -9,14 +9,26 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState("");
+
+
   const [restaurantList, setRestaurantList] = useState([]);
+
   const [restaurantIDList, setRestaurantIDList] = useState([]);
+
+  const [dislike, setDislike] = useState([]);
+
+
   const value = {
     user,
     restaurantList,
     setRestaurantList,
+
     restaurantIDList,
     setRestaurantIDList,
+
+    dislike,
+    setDislike,
+
   };
 
   useEffect(() => {

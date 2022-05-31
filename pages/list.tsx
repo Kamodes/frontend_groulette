@@ -7,59 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import { useAuthContext } from "../authContext";
-
-// 画像の配置
-// %で幅の割合を指定
-{
-  /*
-const rest_img = [
-  {
-    url: "/img/food_gyudon.png",
-    title: "Gyudon",
-    width: "80%",
-  },
-  {
-    url: "/img/food_hamburger_cheese.png",
-    title: "Hamburger",
-    width: "80%",
-  },
-  {
-    url: "/img/food_ramen_iekei.png",
-    title: "Ramen",
-    width: "80%",
-  },
-  {
-    url: "/img/food_spaghetti_vongole_bianco.png",
-    title: "Pasta",
-    width: "80%",
-  },
-  {
-    url: "img/food_subuta.png",
-    title: "Chinese",
-    width: "80%",
-  },
-  {
-    url: "img/teisyoku_haizen.png",
-    title: "Japanese",
-    width: "80%",
-  },
-  {
-    url: "img/vegetable_curry.png",
-    title: "Curry",
-    width: "80%",
-  },
-  {
-    url: "img/nomikai_happy.png",
-    title: "Others",
-    width: "80%",
-  },
-];
-*/
-}
-
-// 暫定リスト
-// ルーレット候補に応じて
-// const rest_cand = rest_img.concat(rest_img).concat(rest_img.slice(0, 4));
+import { db } from "../firebase";
 
 const imageAssign = (n: string, j: number) => {
   if (j == 4) {
@@ -145,23 +93,18 @@ const candList = [
 ];
 
 const subcandList = [
-  ["aaaaa", "ラジュ", 5],
-  ["aaaaa", "サコブーン", 4],
-  ["aaaaa", "鳥貴族", 6],
-  ["aaaaa", "ハイライト", 4],
-  ["aaaaa", "松之助", 4],
-  ["aaaaa", "里乃屋", 1],
-  ["aaaaa", "旅の音", 7],
-  [""],
-  [""],
-  [""],
-  /*
-  ["カフェコレクション", "Pasta"],
-  ["あくた川流", "Ramen"],
-  ["マハ", "Curry"],
-  ["吉田チキン", "Others"],
-  ["かふう", "Japanese"],
-*/
+
+  ["ラジュ", "Curry"],
+  ["サコブーン", "Japanese"],
+  ["鳥貴族", "Others"],
+  ["ハイライト", "Japanese"],
+  ["松之助", "Japanese"],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+  ["", ""],
+
 ];
 
 var rest_cand = [];
@@ -242,6 +185,7 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
+  const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
     if (clickedIndList.length + 10 < maxind) {
@@ -269,8 +213,17 @@ export default function ButtonBases() {
   // 次回検討
   const startHandler = () => {
     //setTempRestaurantList(["aa"]);
+
     var tempIDList: string[] = [];
     var tempNameList: string[] = [];
+
+    for (var j = 0; j < clickedIndList.length; j++) {
+      db.collection("user").add({
+        email: user.email,
+        resname: candList[clickedIndList[j]][0],
+      });
+    }
+
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
       if (!clickedIndList.includes(i)) {
         console.log(i);
@@ -288,11 +241,13 @@ export default function ButtonBases() {
         }
       }
     }
+
     setRestaurantList(tempNameList);
     setRestaurantIDList(tempIDList);
     //console.log(restaurantList);
     //console.log(restaurantIDList);
     router.push("/roulette");
+
   };
   return (
     <>

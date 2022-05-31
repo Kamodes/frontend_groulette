@@ -1,10 +1,19 @@
 import { auth } from "../firebase";
+import Router from "next/router";
 
 const Login = () => {
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-    auth.signInWithEmailAndPassword(email.value, password.value);
+    const isLogin = await auth.signInWithEmailAndPassword(
+      email.value,
+      password.value
+    );
+    if (isLogin) {
+      Router.push("/choice");
+    } else {
+      alert("ログインができません");
+    }
     console.log("ログイン");
   };
 
