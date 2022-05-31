@@ -238,7 +238,7 @@ export default function ButtonBases() {
           //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempList.push([candList[i - 10][0], candList[i - 10][1]]);
+          tempList.push([subcandList[i - 10][0], subcandList[i - 10][1]]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
