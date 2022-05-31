@@ -22,7 +22,7 @@ export const Header = () => {
   };
   return (
     <div className="flex bg-blue-500 border-b-4 border-blue-100">
-      <div id="topPage" className="basis-1/2">
+      <div id="topPage" className="basis-1/3">
         <button
           onClick={() => handler("/choice")}
           className="basis-1/2 mt-2 mb-1 ml-2 bg-blue-500 text-5xl font-sans font-medium text-white"
