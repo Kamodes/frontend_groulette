@@ -183,7 +183,7 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
-  const [clickedSNIDList, setClickedSNIDList] = useState<string[]>([]);
+  const [SNList, setSNList] = useState<string[]>([]);
   const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
@@ -204,9 +204,9 @@ export default function ButtonBases() {
       if (!clickedSNIndList.includes(ind)) {
         setClickedSNIndList([...clickedSNIndList, ind]);
         if (ind < 10) {
-          setClickedSNIDList([...clickedSNIDList, candList[ind][0]]);
+          setSNList([...SNList, candList[ind][0]]);
         } else {
-          setClickedSNIDList([...clickedSNIDList, subcandList[ind - 10][0]]);
+          setSNList([...SNList, subcandList[ind - 10][0]]);
         }
       }
     } else {
@@ -219,10 +219,10 @@ export default function ButtonBases() {
     var tempIDList: string[] = [];
     var tempNameList: string[] = [];
     if (user) {
-      for (var j = 0; j < clickedSNIDList.length; j++) {
+      for (var j = 0; j < SNList.length; j++) {
         db.collection("user").add({
           email: user.email,
-          resname: candList[clickedSNIDList[j]],
+          resname: candList[SNList[j]],
         });
       }
     }
