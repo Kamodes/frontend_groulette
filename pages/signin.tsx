@@ -19,18 +19,17 @@ const Login = () => {
 
   return (
     <div>
-      <h1>ログイン</h1>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="mt-8 ml-5 text-xl">
           <label>メールアドレス</label>
           <input name="email" type="email" placeholder="email" />
         </div>
-        <div>
+        <div className="mt-3 ml-5 text-xl">
           <label>パスワード</label>
           <input name="password" type="password" placeholder="password" />
         </div>
         <div>
-          <button>ログイン</button>
+          <button className="mx-5 my-3 flex justify-center bg-red-500 hover:bg-red-700 text-white text-xl font-bold py-1 px-3 border border-red-700 rounded">ログイン</button>
         </div>
         {/* <div>
           ユーザ登録は<Link to={"/signup"}>こちら</Link>から
