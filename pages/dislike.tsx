@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../authContext";
 import { db } from "../firebase";
+
 const Dislike = () => {
   const { user } = useAuthContext();
-  const dislikeList: string[] = [];
-  const [dislike, setDislike] = useState<string[]>([]);
+  const { dislike, setDislike } = useAuthContext();
   useEffect(() => {
     let copyList: string[] = [];
     db.collection("user")

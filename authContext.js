@@ -10,10 +10,13 @@ export function useAuthContext() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState("");
   const [restaurantList, setRestaurantList] = useState([]);
+  const [dislike, setDislike] = useState([]);
   const value = {
     user,
     restaurantList,
     setRestaurantList,
+    dislike,
+    setDislike,
   };
 
   useEffect(() => {
