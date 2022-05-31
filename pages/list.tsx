@@ -179,11 +179,11 @@ const ImageMarked = styled("span")(({ theme }) => ({
 
 export default function ButtonBases() {
   const { restaurantList, setRestaurantList } = useAuthContext();
-  const { restaurantIDList, setRestaurantIDList } = useAuthContext();
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
   const [SNList, setSNList] = useState<string[]>([]);
+  const [SNNameList, setSNNameList] = useState<string[]>([]);
   const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
@@ -205,8 +205,10 @@ export default function ButtonBases() {
         setClickedSNIndList([...clickedSNIndList, ind]);
         if (ind < 10) {
           setSNList([...SNList, candList[ind][0]]);
+          setSNNameList([...SNNameList, candList[ind][1]]);
         } else {
           setSNList([...SNList, subcandList[ind - 10][0]]);
+          setSNNameList([...SNNameList, subcandList[ind - 10][1]]);
         }
       }
     } else {
@@ -216,13 +218,13 @@ export default function ButtonBases() {
 
   // 次回検討
   const startHandler = () => {
-    var tempIDList: string[] = [];
-    var tempNameList: string[] = [];
+    var tempList = [];
     if (user) {
       for (var j = 0; j < SNList.length; j++) {
         db.collection("user").add({
           email: user.email,
-          resname: SNList[j],
+          resID: SNList[j],
+          resname: SNNameList[j],
         });
       }
     }
@@ -232,21 +234,18 @@ export default function ButtonBases() {
         console.log(i);
         if (i < 10) {
           //console.log(candList[i][1]);
-          tempIDList.push(candList[i][0]);
-          tempNameList.push(candList[i][1]);
+          tempList.push([candList[i][0], candList[i][1]]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempIDList.push(subcandList[i - 10][0]);
-          tempNameList.push(subcandList[i - 10][1]);
+          tempList.push([candList[i - 10][0], candList[i - 10][1]]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
       }
     }
 
-    setRestaurantList(tempNameList);
-    setRestaurantIDList(tempIDList);
+    setRestaurantList(tempList);
     console.log(SNList);
     //console.log(restaurantList);
     //console.log(restaurantIDList);
