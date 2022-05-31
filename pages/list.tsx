@@ -7,59 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import { useAuthContext } from "../authContext";
-
-// 画像の配置
-// %で幅の割合を指定
-{
-  /*
-const rest_img = [
-  {
-    url: "/img/food_gyudon.png",
-    title: "Gyudon",
-    width: "80%",
-  },
-  {
-    url: "/img/food_hamburger_cheese.png",
-    title: "Hamburger",
-    width: "80%",
-  },
-  {
-    url: "/img/food_ramen_iekei.png",
-    title: "Ramen",
-    width: "80%",
-  },
-  {
-    url: "/img/food_spaghetti_vongole_bianco.png",
-    title: "Pasta",
-    width: "80%",
-  },
-  {
-    url: "img/food_subuta.png",
-    title: "Chinese",
-    width: "80%",
-  },
-  {
-    url: "img/teisyoku_haizen.png",
-    title: "Japanese",
-    width: "80%",
-  },
-  {
-    url: "img/vegetable_curry.png",
-    title: "Curry",
-    width: "80%",
-  },
-  {
-    url: "img/nomikai_happy.png",
-    title: "Others",
-    width: "80%",
-  },
-];
-*/
-}
-
-// 暫定リスト
-// ルーレット候補に応じて
-// const rest_cand = rest_img.concat(rest_img).concat(rest_img.slice(0, 4));
+import { db } from "../firebase";
 
 const imageAssign = (n: string, j: string) => {
   if (j == "Gyudon") {
@@ -143,13 +91,6 @@ const subcandList = [
   ["", ""],
   ["", ""],
   ["", ""],
-  /*
-  ["カフェコレクション", "Pasta"],
-  ["あくた川流", "Ramen"],
-  ["マハ", "Curry"],
-  ["吉田チキン", "Others"],
-  ["かふう", "Japanese"],
-*/
 ];
 
 var rest_cand = [];
@@ -229,6 +170,7 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
+  const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
     if (clickedIndList.length + 10 < maxind) {
@@ -259,6 +201,12 @@ export default function ButtonBases() {
   const startHandler = () => {
     //setTempRestaurantList(["aa"]);
     var tempList: string[] = [];
+    for (var j = 0; j < clickedIndList.length; j++) {
+      db.collection("user").add({
+        email: user.email,
+        resname: candList[clickedIndList[j]][0],
+      });
+    }
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
       if (!clickedIndList.includes(i)) {
         console.log(i);
@@ -276,7 +224,7 @@ export default function ButtonBases() {
     }
     setRestaurantList(tempList);
     console.log(restaurantList);
-    router.push("/roulette");
+    //router.push("/roulette");
   };
   return (
     <>
