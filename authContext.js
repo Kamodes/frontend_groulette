@@ -9,22 +9,17 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState("");
-  const [restaurantList, setRestaurantList] = useState([
-    "あくた川",
-    "ハイライト",
-    "キラメキ",
-    "中央食堂",
-    "マハカレー",
-    "伝丸",
-    "たくみ",
-    "鳥貴族",
-    "さわやか",
-    "カフェテリアルネ",
-  ]);
+
+
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [dislike, setDislike] = useState([]);
+
   const value = {
     user,
     restaurantList,
     setRestaurantList,
+    dislike,
+    setDislike,
   };
 
   useEffect(() => {

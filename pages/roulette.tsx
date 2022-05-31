@@ -1,11 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ContactSupportOutlined } from "@material-ui/icons";
-import { ReactChild, ReactFragment, SetStateAction, useEffect, useState, useRef } from "react";
+import {
+  ReactChild,
+  ReactFragment,
+  SetStateAction,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import FoodItem from "../components/foodItem";
-import Router from 'next/router'
+
+import Router from "next/router";
+
 import { useAuthContext } from "../authContext";
 
-const arr1 = [0]
+const arr1 = [0];
 
 const Roulette = () => {
   const { restaurantList } = useAuthContext()
@@ -15,15 +24,17 @@ const Roulette = () => {
   useEffect(() => {
     for (var i = 0; i < 300; i++) {
       const randnum = Math.floor(Math.random() * 10);
-      arr1.push(randnum)
+      arr1.push(randnum);
     }
+
   }, [])
   //ルーレットの光る部分を配列から設定する
-  var index = 0
+  var index = 0;
+
   const lightedItemChange = () => {
-    index += 1
+    index += 1;
     setLightedItem(arr1[index]);
-  }
+  };
 
   const [lightedItem, setLightedItem] = useState<number>(-1);
   const [buttonCount, setButtonCount] = useState<number>(0);
@@ -32,22 +43,24 @@ const Roulette = () => {
   const spin = () => {
     console.log("isRoulette before :" + isRoulette)
     var setIV1 = setInterval(lightedItemChange, 100)
+
     const stopIV1 = () => {
-      clearInterval(setIV1)
-    }
-    var setIV2 = setInterval(lightedItemChange, 300)
+      clearInterval(setIV1);
+    };
+    var setIV2 = setInterval(lightedItemChange, 300);
     const stopIV2 = () => {
-      clearInterval(setIV2)
-    }
-    var setIV3 = setInterval(lightedItemChange, 500)
+      clearInterval(setIV2);
+    };
+    var setIV3 = setInterval(lightedItemChange, 500);
     const stopIV3 = () => {
-      clearInterval(setIV3)
-    }
-    var setIV4 = setInterval(lightedItemChange, 1000)
+      clearInterval(setIV3);
+    };
+    var setIV4 = setInterval(lightedItemChange, 1000);
     const stopIV4 = () => {
-      clearInterval(setIV4)
-    }
+      clearInterval(setIV4);
+    };
     const setIV5 = () => {
+
       setLightedItem(arr1[200])
       setButtonCount(buttonCount + 1)
       isRoulette = true
@@ -75,15 +88,16 @@ const Roulette = () => {
   // ボタン押下時のみにルーレットスタート
   useEffect(() => {
     if (isFirstRender.current) {
-      isFirstRender.current = false
+      isFirstRender.current = false;
     } else {
       if (buttonCount == 1) {
-        spin()
+        spin();
       } else if (buttonCount > 2) {
-        alert("ルーレットは1回までです！")
+        alert("ルーレットは1回までです！");
       }
     }
-  }, [buttonCount])
+  }, [buttonCount]);
+
 
   const restaurantShow = () => {
     alert("お店は「" + foodList[arr1[200]] + "」に決定しました！")
@@ -96,8 +110,11 @@ const Roulette = () => {
     }
     else {
       alert("先にルーレットを回してください！")
+
     }
-  }
+  };
+
+  const { restaurantList, setRestaurantList } = useAuthContext();
 
   //ページ遷移
   const handler = (path: string) => {
@@ -108,18 +125,36 @@ const Roulette = () => {
   }
 
   return (
-    <div className="my-0">
-      <div className="flex flex-wrap">
-        {foodList.map((value, index) => {
-          return (
-            <FoodItem
-              key={index}
-              storeName={value}
-              isLighted={index === lightedItem}
-            />
-          );
-        })}
+    <>
+      {console.log("now selected: " + restaurantList)}
+      <div className="my-0">
+        <div className="flex flex-wrap">
+          {foodList.map((value, index) => {
+            return (
+              <FoodItem
+                key={index}
+                storeName={value}
+                isLighted={index === lightedItem}
+              />
+            );
+          })}
+        </div>
+        <div>
+          <button
+            onClick={() => setButtonCount(buttonCount + 1)}
+            className="mx-8 my-3 flex justify-center bg-red-500 hover:bg-red-700 text-white text-4xl font-bold py-2 px-4 border border-red-700 rounded"
+          >
+            Groulette Start!
+          </button>
+          <button
+            onClick={() => restrauntDisplay()}
+            className="mx-8 my-5 flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          >
+            レストランの情報はこちら
+          </button>
+        </div>
       </div>
+
       <div id="startButton">
         <button onClick={() => setButtonCount(1)}
           className="mx-8 my-3 flex justify-center bg-red-500 hover:bg-red-700 text-white text-4xl font-bold py-2 px-4 border border-red-700 rounded">
@@ -131,6 +166,7 @@ const Roulette = () => {
           レストランの情報はこちら</button>
       </div>
     </div>
+
   );
 };
 

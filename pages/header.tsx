@@ -29,6 +29,7 @@ export const Header = () => {
       <div id="headerButton" className="basis-1/4">
         <HeaderButton label={user ? "ログアウト" : "ログイン"} />
         <HeaderButton label="このサイトについて" />
+        <HeaderButton label="嫌いな店リスト" />
       </div>
     </div>
   );

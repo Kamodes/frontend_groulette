@@ -6,59 +6,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
-
-// 画像の配置
-// %で幅の割合を指定
-{
-  /*
-const rest_img = [
-  {
-    url: "/img/food_gyudon.png",
-    title: "Gyudon",
-    width: "80%",
-  },
-  {
-    url: "/img/food_hamburger_cheese.png",
-    title: "Hamburger",
-    width: "80%",
-  },
-  {
-    url: "/img/food_ramen_iekei.png",
-    title: "Ramen",
-    width: "80%",
-  },
-  {
-    url: "/img/food_spaghetti_vongole_bianco.png",
-    title: "Pasta",
-    width: "80%",
-  },
-  {
-    url: "img/food_subuta.png",
-    title: "Chinese",
-    width: "80%",
-  },
-  {
-    url: "img/teisyoku_haizen.png",
-    title: "Japanese",
-    width: "80%",
-  },
-  {
-    url: "img/vegetable_curry.png",
-    title: "Curry",
-    width: "80%",
-  },
-  {
-    url: "img/nomikai_happy.png",
-    title: "Others",
-    width: "80%",
-  },
-];
-*/
-}
-
-// 暫定リスト
-// ルーレット候補に応じて
-// const rest_cand = rest_img.concat(rest_img).concat(rest_img.slice(0, 4));
+import { useAuthContext } from "../authContext";
+import { db } from "../firebase";
 
 const imageAssign = (n: string, j: string) => {
   if (j == "Gyudon") {
@@ -142,13 +91,6 @@ const subcandList = [
   ["", ""],
   ["", ""],
   ["", ""],
-  /*
-  ["カフェコレクション", "Pasta"],
-  ["あくた川流", "Ramen"],
-  ["マハ", "Curry"],
-  ["吉田チキン", "Others"],
-  ["かふう", "Japanese"],
-*/
 ];
 
 var rest_cand = [];
@@ -224,9 +166,11 @@ const ImageMarked = styled("span")(({ theme }) => ({
 }));
 
 export default function ButtonBases() {
+  const { restaurantList, setRestaurantList } = useAuthContext();
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
+  const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
     if (clickedIndList.length + 10 < maxind) {
@@ -252,6 +196,36 @@ export default function ButtonBases() {
   };
   // 最大候補数を渡す
   const maxind = 15; ///暫定
+
+  // 次回検討
+  const startHandler = () => {
+    //setTempRestaurantList(["aa"]);
+    var tempList: string[] = [];
+    for (var j = 0; j < clickedIndList.length; j++) {
+      db.collection("user").add({
+        email: user.email,
+        resname: candList[clickedIndList[j]][0],
+      });
+    }
+    for (var i = 0; i < 10 + clickedIndList.length; i++) {
+      if (!clickedIndList.includes(i)) {
+        console.log(i);
+        if (i < 10) {
+          console.log(candList[i][0]);
+          tempList.push(candList[i][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, candList[i][0]]);
+        } else {
+          tempList.push(subcandList[i - 10][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
+        }
+      }
+    }
+    setRestaurantList(tempList);
+    console.log(restaurantList);
+    //router.push("/roulette");
+  };
   return (
     <>
       {rest_cand.map((image, index) => (
@@ -434,7 +408,7 @@ export default function ButtonBases() {
           height: 200,
           width: buttonImg[0].width,
         }}
-        onClick={() => router.push("/roulette")}
+        onClick={() => startHandler()}
       >
         <ImageSrc
           style={{
