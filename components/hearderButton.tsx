@@ -11,10 +11,10 @@ export const HeaderButton = (props: { label: string }) => {
     } else if (props.label == "ログアウト") {
       auth.signOut();
       return "/choice";
-
     } else if (props.label == "嫌いな店リスト") {
       return user ? "/dislike" : "/signin";
-
+    } else if (props.label == "このサイトについて") {
+      return "/about";
     } else {
       return "/signup";
     }
