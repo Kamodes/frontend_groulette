@@ -11,8 +11,10 @@ export const HeaderButton = (props: { label: string }) => {
     } else if (props.label == "ログアウト") {
       auth.signOut();
       return "/choice";
+
     } else if (props.label == "嫌いな店リスト") {
       return user ? "/dislike" : "/signin";
+
     } else {
       return "/signup";
     }
@@ -20,7 +22,7 @@ export const HeaderButton = (props: { label: string }) => {
   return (
     <Button
       onClick={() => Router.push(getPath())}
-      className="font-bold text-gray-800 mx-1 mt-5 mb-4"
+      className="hover:bg-blue-700 font-sans font-medium text-xl text-white mx-1 mt-3 mb-1"
     >
       {props.label}
     </Button>
