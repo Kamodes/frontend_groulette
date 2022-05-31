@@ -229,7 +229,6 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
-  const [tempRestaurantList, setTempRestaurantList] = useState<string[]>([]);
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
     if (clickedIndList.length + 10 < maxind) {
@@ -259,28 +258,24 @@ export default function ButtonBases() {
   // 次回検討
   const startHandler = () => {
     //setTempRestaurantList(["aa"]);
+    var tempList: string[] = [];
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
       if (!clickedIndList.includes(i)) {
         console.log(i);
         if (i < 10) {
           console.log(candList[i][0]);
-          //var cand = candList[i][0];
-          //console.log(cand);
-          //if (typeof candList[i][0] === "string") {
-          //  console.log("true");
-          //}
-          setTempRestaurantList([...tempRestaurantList, candList[i][0]]);
+          tempList.push(candList[i][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          setTempRestaurantList([
-            ...tempRestaurantList,
-            subcandList[i - 10][0],
-          ]);
+          tempList.push(subcandList[i - 10][0]);
+          console.log(tempList);
+          //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
       }
-      console.log(tempRestaurantList);
     }
-    //console.log(clickedIndList);
-    //console.log(restaurantList);
+    setRestaurantList(tempList);
+    console.log(restaurantList);
     router.push("/roulette");
   };
   return (

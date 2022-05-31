@@ -11,22 +11,22 @@ import { useRouter } from "next/router";
 const images1 = [
   {
     url: "/img/food_gyudon.png",
-    title: "Gyudon",
+    title: "和食",
     width: "25%",
   },
   {
     url: "/img/food_hamburger_cheese.png",
-    title: "Hamburger",
+    title: "ファストフード",
     width: "25%",
   },
   {
     url: "/img/food_ramen_iekei.png",
-    title: "Ramen",
+    title: "ラーメン",
     width: "25%",
   },
   {
     url: "/img/food_spaghetti_vongole_bianco.png",
-    title: "Pasta",
+    title: "洋食",
     width: "25%",
   },
 ];
@@ -34,7 +34,7 @@ const images1 = [
 const images2 = [
   {
     url: "img/food_subuta.png",
-    title: "Chinese",
+    title: "アジアン/中華",
     width: "25%",
   },
   {
@@ -49,7 +49,7 @@ const images2 = [
   },
   {
     url: "img/nomikai_salaryman.png",
-    title: "Others",
+    title: "居酒屋",
     width: "25%",
   },
 ];
