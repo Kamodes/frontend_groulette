@@ -61,52 +61,58 @@ const rest_img = [
 // ルーレット候補に応じて
 // const rest_cand = rest_img.concat(rest_img).concat(rest_img.slice(0, 4));
 
-const imageAssign = (n: string, j: string) => {
-  if (j == "Gyudon") {
+const imageAssign = (n: string, j: number) => {
+  if (j == 4) {
     var img = {
-      url: "/img/food_gyudon.png",
+      url: "/img/list_icon/japanese.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Hamburger") {
+  } else if (j == 3) {
     var img = {
-      url: "/img/food_hamburger_cheese.png",
+      url: "/img/list_icon/fastfood.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Ramen") {
+  } else if (j == 2) {
     var img = {
-      url: "/img/food_ramen_iekei.png",
+      url: "/img/list_icon/ramen.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Pasta") {
+  } else if (j == 5) {
     var img = {
-      url: "/img/food_spaghetti_vongole_bianco.png",
+      url: "/img/list_icon/youshoku.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Chinese") {
+  } else if (j == 0) {
     var img = {
-      url: "img/food_subuta.png",
+      url: "img/list_icon/chinese.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Japanese") {
+  } else if (j == 1) {
     var img = {
-      url: "img/teisyoku_haizen.png",
+      url: "img/list_icon/yakiniku.png",
       title: n,
       width: "40%",
     };
-  } else if (j == "Curry") {
+  } else if (j == 6) {
     var img = {
-      url: "img/vegetable_curry.png",
+      url: "img/list_icon/izakaya.png",
+      title: n,
+      width: "40%",
+    };
+  } else if (j == 7) {
+    var img = {
+      url: "img/list_icon/others.png",
       title: n,
       width: "40%",
     };
   } else {
     var img = {
-      url: "img/nomikai_salaryman.png",
+      url: "img/list_icon/none.png",
       title: n,
       width: "40%",
     };
@@ -119,30 +125,35 @@ const buttonImg = [
 ];
 
 // BackEndからお店のリストとジャンルを受け取る
+// 以下テスト用の暫定コード
+
+// 最大候補数を渡す
+const maxind = 17;
+
 const candList = [
-  ["すき家", "Gyudon"],
-  ["マクドナルド", "Hamburger"],
-  ["吉野家", "Gyudon"],
-  ["あくた川", "Ramen"],
-  ["キラメキ☆JAPAN", "Ramen"],
-  ["ジェームズキッチン", "others"],
-  ["チャンピオンカレー", "Curry"],
-  ["凛屋", "Pasta"],
-  ["火楓源", "Chinese"],
-  ["ケンタッキー", "Hamburger"],
+  ["すき家", 4],
+  ["マクドナルド", 3],
+  ["吉野家", 4],
+  ["あくた川", 2],
+  ["キラメキ☆JAPAN", 2],
+  ["ジェームズキッチン", 5],
+  ["チャンピオンカレー", 5],
+  ["凛屋", 5],
+  ["火楓源", 0],
+  ["ケンタッキー", 3],
 ];
 
 const subcandList = [
-  ["ラジュ", "Curry"],
-  ["サコブーン", "Japanese"],
-  ["鳥貴族", "Others"],
-  ["ハイライト", "Japanese"],
-  ["松之助", "Japanese"],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
-  ["", ""],
+  ["ラジュ", 5],
+  ["サコブーン", 4],
+  ["鳥貴族", 6],
+  ["ハイライト", 4],
+  ["松之助", 4],
+  ["里乃屋", 1],
+  ["旅の音", 7],
+  [""],
+  [""],
+  [""],
   /*
   ["カフェコレクション", "Pasta"],
   ["あくた川流", "Ramen"],
@@ -252,8 +263,6 @@ export default function ButtonBases() {
       window.alert("No more candidates can be deleted.");
     }
   };
-  // 最大候補数を渡す
-  const maxind = 15; ///暫定
 
   // 次回検討
   const startHandler = () => {

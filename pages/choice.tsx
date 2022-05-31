@@ -10,64 +10,72 @@ import { useRouter } from "next/router";
 // %で幅の割合を指定
 const images1 = [
   {
-    url: "/img/food_gyudon.png",
+    url: "/img/choice_icon/food_gyudon.png",
     title: "和食",
     width: "25%",
+    value: "4",
   },
   {
-    url: "/img/food_hamburger_cheese.png",
+    url: "/img/choice_icon/food_hamburger_cheese.png",
     title: "ファストフード",
     width: "25%",
+    value: "3",
   },
   {
-    url: "/img/food_ramen_iekei.png",
+    url: "/img/choice_icon/food_ramen_iekei.png",
     title: "ラーメン",
     width: "25%",
+    value: "2",
   },
   {
-    url: "/img/food_spaghetti_vongole_bianco.png",
+    url: "/img/choice_icon/food_spaghetti_vongole_bianco.png",
     title: "洋食",
     width: "25%",
+    value: "5",
   },
 ];
 
 const images2 = [
   {
-    url: "img/food_subuta.png",
-    title: "アジアン/中華",
+    url: "img/choice_icon/food_subuta.png",
+    title: "アジアン / 中華",
     width: "25%",
+    value: "0",
   },
   {
-    url: "img/teisyoku_haizen.png",
-    title: "Japanese",
+    url: "img/choice_icon/yakiniku_party.png",
+    title: "焼肉",
     width: "25%",
+    value: "1",
   },
   {
-    url: "img/vegetable_curry.png",
-    title: "Curry",
-    width: "25%",
-  },
-  {
-    url: "img/nomikai_salaryman.png",
+    url: "img/choice_icon/nomikai_salaryman.png",
     title: "居酒屋",
     width: "25%",
+    value: "6",
+  },
+  {
+    url: "img/choice_icon/drink_coffee.png",
+    title: "Cafe & others",
+    width: "25%",
+    value: "7",
   },
 ];
 
 const images3 = [
   {
     url: "img/mode_A.jpg",
-    title: "GOD",
+    title: "kami",
     width: "33%",
   },
   {
     url: "img/mode_B.jpg",
-    title: "NORMAL",
+    title: "normal",
     width: "33%",
   },
   {
     url: "img/mode_C.jpg",
-    title: " DEVIL",
+    title: "oni",
     width: "33%",
   },
 ];
@@ -184,12 +192,12 @@ export default function ButtonBases() {
   };
   const onModeSelect = (mode: string) => {
     {
+      var url_str = "/getRequest/restaurantAPI?genre="; //...2517&mode=kami
+      clickedList.forEach(function (value, index) {
+        url_str = url_str + value;
+      });
+      url_str = url_str + "&mode=" + mode;
       /*
-    var url_str = "/backend";
-    clickedList.forEach(function (value, index) {
-      url_str = url_str + "?genre" + index + "=" + value;
-    });
-    url_str = url_str + "?mode=" + mode;
     axios
       .get(url_str)
       .then(function (response) {
@@ -205,6 +213,7 @@ export default function ButtonBases() {
       });
     */
     }
+    console.log(url_str);
     if (clickedList.length > 0) {
       router.push("/list");
     } else {
@@ -223,7 +232,7 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
-          onClick={() => onClickHandler(index, image.title)}
+          onClick={() => onClickHandler(index, image.value)}
         >
           <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
           <ImageBackdrop
@@ -258,7 +267,7 @@ export default function ButtonBases() {
           style={{
             width: image.width,
           }}
-          onClick={() => onClickHandler(index + 4, image.title)}
+          onClick={() => onClickHandler(index + 4, image.value)}
         >
           <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
           <ImageBackdrop
