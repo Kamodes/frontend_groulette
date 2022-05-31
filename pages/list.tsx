@@ -80,26 +80,26 @@ const maxind = 17;
 
 const candList = [
   // [id,name,genre]
-  ["aaaaa", "すき家", 4],
-  ["aaaaa", "マクドナルド", 3],
-  ["aaaaa", "吉野家", 4],
-  ["aaaaa", "あくた川", 2],
-  ["aaaaa", "キラメキ☆JAPAN", 2],
-  ["aaaaa", "ジェームズキッチン", 5],
-  ["aaaaa", "チャンピオンカレー", 5],
-  ["aaaaa", "凛屋", 5],
-  ["aaaaa", "火楓源", 0],
-  ["aaaaa", "ケンタッキー", 3],
+  ["aaaa0", "すき家", 4],
+  ["aaaa1", "マクドナルド", 3],
+  ["aaaa2", "吉野家", 4],
+  ["aaaa3", "あくた川", 2],
+  ["aaaa4", "キラメキ☆JAPAN", 2],
+  ["aaaa5", "ジェームズキッチン", 5],
+  ["aaaa6", "チャンピオンカレー", 5],
+  ["aaaa7", "凛屋", 5],
+  ["aaaa8", "火楓源", 0],
+  ["aaaa9", "ケンタッキー", 3],
 ];
 
 const subcandList = [
   ["aaaaa", "ラジュ", 5],
-  ["aaaaa", "サコブーン", 4],
-  ["aaaaa", "鳥貴族", 6],
-  ["aaaaa", "ハイライト", 4],
-  ["aaaaa", "松之助", 4],
-  ["aaaaa", "里乃屋", 1],
-  ["aaaaa", "旅の音", 7],
+  ["aaaab", "サコブーン", 4],
+  ["aaaac", "鳥貴族", 6],
+  ["aaaad", "ハイライト", 4],
+  ["aaaae", "松之助", 4],
+  ["aaaaf", "里乃屋", 1],
+  ["aaab0", "旅の音", 7],
   [""],
   [""],
   [""],
@@ -183,6 +183,7 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
+  const [clickedSNIDList, setClickedSNIDList] = useState<string[]>([]);
   const { user } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
@@ -202,6 +203,11 @@ export default function ButtonBases() {
       }
       if (!clickedSNIndList.includes(ind)) {
         setClickedSNIndList([...clickedSNIndList, ind]);
+        if (ind < 10) {
+          setClickedSNIDList([...clickedSNIDList, candList[ind][0]]);
+        } else {
+          setClickedSNIDList([...clickedSNIDList, subcandList[ind - 10][0]]);
+        }
       }
     } else {
       window.alert("No more candidates can be deleted.");
@@ -210,15 +216,13 @@ export default function ButtonBases() {
 
   // 次回検討
   const startHandler = () => {
-    //setTempRestaurantList(["aa"]);
-
     var tempIDList: string[] = [];
     var tempNameList: string[] = [];
     if (user) {
-      for (var j = 0; j < clickedSNIndList.length; j++) {
+      for (var j = 0; j < clickedSNIDList.length; j++) {
         db.collection("user").add({
           email: user.email,
-          resname: candList[clickedSNIndList[j]],
+          resname: candList[clickedSNIDList[j]],
         });
       }
     }
@@ -243,6 +247,7 @@ export default function ButtonBases() {
 
     setRestaurantList(tempNameList);
     setRestaurantIDList(tempIDList);
+    console.log(clickedSNIDList);
     //console.log(restaurantList);
     //console.log(restaurantIDList);
     router.push("/roulette");
