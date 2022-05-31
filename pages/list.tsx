@@ -131,26 +131,27 @@ const buttonImg = [
 const maxind = 17;
 
 const candList = [
-  ["すき家", 4],
-  ["マクドナルド", 3],
-  ["吉野家", 4],
-  ["あくた川", 2],
-  ["キラメキ☆JAPAN", 2],
-  ["ジェームズキッチン", 5],
-  ["チャンピオンカレー", 5],
-  ["凛屋", 5],
-  ["火楓源", 0],
-  ["ケンタッキー", 3],
+  // [id,name,genre]
+  ["aaaaa", "すき家", 4],
+  ["aaaaa", "マクドナルド", 3],
+  ["aaaaa", "吉野家", 4],
+  ["aaaaa", "あくた川", 2],
+  ["aaaaa", "キラメキ☆JAPAN", 2],
+  ["aaaaa", "ジェームズキッチン", 5],
+  ["aaaaa", "チャンピオンカレー", 5],
+  ["aaaaa", "凛屋", 5],
+  ["aaaaa", "火楓源", 0],
+  ["aaaaa", "ケンタッキー", 3],
 ];
 
 const subcandList = [
-  ["ラジュ", 5],
-  ["サコブーン", 4],
-  ["鳥貴族", 6],
-  ["ハイライト", 4],
-  ["松之助", 4],
-  ["里乃屋", 1],
-  ["旅の音", 7],
+  ["aaaaa", "ラジュ", 5],
+  ["aaaaa", "サコブーン", 4],
+  ["aaaaa", "鳥貴族", 6],
+  ["aaaaa", "ハイライト", 4],
+  ["aaaaa", "松之助", 4],
+  ["aaaaa", "里乃屋", 1],
+  ["aaaaa", "旅の音", 7],
   [""],
   [""],
   [""],
@@ -164,11 +165,11 @@ const subcandList = [
 ];
 
 var rest_cand = [];
-candList.map((cand, index) => rest_cand.push(imageAssign(cand[0], cand[1])));
+candList.map((cand, index) => rest_cand.push(imageAssign(cand[1], cand[2])));
 
 var sub_rest_cand = [];
 subcandList.map((cand, index) =>
-  sub_rest_cand.push(imageAssign(cand[0], cand[1]))
+  sub_rest_cand.push(imageAssign(cand[1], cand[2]))
 );
 
 // イメージつきボタンの設定
@@ -237,6 +238,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
 
 export default function ButtonBases() {
   const { restaurantList, setRestaurantList } = useAuthContext();
+  const { restaurantIDList, setRestaurantIDList } = useAuthContext();
   const router = useRouter();
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const [clickedSNIndList, setClickedSNIndList] = useState<number[]>([]);
@@ -267,24 +269,29 @@ export default function ButtonBases() {
   // 次回検討
   const startHandler = () => {
     //setTempRestaurantList(["aa"]);
-    var tempList: string[] = [];
+    var tempIDList: string[] = [];
+    var tempNameList: string[] = [];
     for (var i = 0; i < 10 + clickedIndList.length; i++) {
       if (!clickedIndList.includes(i)) {
         console.log(i);
         if (i < 10) {
-          console.log(candList[i][0]);
-          tempList.push(candList[i][0]);
-          console.log(tempList);
+          //console.log(candList[i][1]);
+          tempIDList.push(candList[i][0]);
+          tempNameList.push(candList[i][1]);
+          //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempList.push(subcandList[i - 10][0]);
-          console.log(tempList);
+          tempIDList.push(candList[i - 10][0]);
+          tempNameList.push(subcandList[i - 10][1]);
+          //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
       }
     }
-    setRestaurantList(tempList);
-    console.log(restaurantList);
+    setRestaurantList(tempNameList);
+    setRestaurantIDList(tempIDList);
+    //console.log(restaurantList);
+    //console.log(restaurantIDList);
     router.push("/roulette");
   };
   return (

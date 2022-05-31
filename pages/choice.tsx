@@ -216,6 +216,7 @@ export default function ButtonBases() {
     console.log(url_str);
     if (clickedList.length > 0) {
       router.push("/list");
+      //router.push("https://goo.gl/maps/Ew5LX7764mRDsy8c8");
     } else {
       window.alert("Please select one or more genres.");
     }
