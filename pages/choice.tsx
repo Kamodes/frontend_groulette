@@ -194,7 +194,7 @@ export default function ButtonBases() {
   };
   const onModeSelect = (mode: string) => {
     {
-      var url_str = "/getRequest/restaurantAPI?genre="; //...2517&mode=kami
+      var url_str = "http://localhost:8000/getRequest/restaurantAPI?genre="; //...2517&mode=kami
       clickedList.forEach(function (value, index) {
         url_str = url_str + value;
       });
@@ -205,7 +205,7 @@ export default function ButtonBases() {
           // handle success
           console.log(response);
           console.log("Success!");
-          setBackendRes([...backendRes, response]);
+          setBackendRes(response.data);
         })
         .catch(function (error) {
           // handle error

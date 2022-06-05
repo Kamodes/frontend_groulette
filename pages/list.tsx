@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import { useAuthContext } from "../authContext";
@@ -189,11 +188,13 @@ export default function ButtonBases() {
   ]*/
 
   var rest_cand = [];
-  candList.map((cand, index) => rest_cand.push(imageAssign(cand[1], cand[2])));
+  candList.map((cand, index) =>
+    rest_cand.push(imageAssign(cand.name, cand.genre))
+  );
 
   var sub_rest_cand = [];
   subcandList.map((cand, index) =>
-    sub_rest_cand.push(imageAssign(cand[1], cand[2]))
+    sub_rest_cand.push(imageAssign(cand.name, cand.genre))
   );
 
   //クリックハンドラー
@@ -264,6 +265,8 @@ export default function ButtonBases() {
   };
   return (
     <>
+      {console.log(backendRes)}
+      {console.log(rest_cand)}
       {rest_cand.map((image, index) => (
         <Box
           sx={{
