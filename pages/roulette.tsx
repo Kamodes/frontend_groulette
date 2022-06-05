@@ -14,9 +14,12 @@ import Router from "next/router";
 
 import { useAuthContext } from "../authContext";
 
+import { useRouter } from "next/router";
+
 const arr1 = [0];
 
 const Roulette = () => {
+  const router = useRouter();
   const { restaurantList, setRestaurantList } = useAuthContext();
   const { restaurantIDList, setRestaurantIDList } = useAuthContext();
   const [foodList, setFoodList] = useState<string[]>(restaurantList);
@@ -102,7 +105,11 @@ const Roulette = () => {
 
   const restaurantDisplay = () => {
     if (isRoulette == true || buttonCount >= 2) {
-      handler("/restaurantInfo");
+      //handler("/restaurantInfo");
+      const url =
+        "https://www.google.com/maps/place/?q=place_id:" +
+        foodList[arr1[200]][0];
+      router.push(url);
     } else {
       alert("先にルーレットを回してください！");
     }

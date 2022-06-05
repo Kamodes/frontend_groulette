@@ -246,11 +246,14 @@ export default function ButtonBases() {
         console.log(i);
         if (i < 10) {
           //console.log(candList[i][1]);
-          tempList.push([candList[i][0], candList[i][1]]);
+          tempList.push([candList[i].place_id, candList[i].name]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, candList[i][0]]);
         } else {
-          tempList.push([subcandList[i - 10][0], subcandList[i - 10][1]]);
+          tempList.push([
+            subcandList[i - 10].place_id,
+            subcandList[i - 10].name,
+          ]);
           //console.log(tempList);
           //setRestaurantList([...restaurantList, subcandList[i - 10][0]]);
         }
