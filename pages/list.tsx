@@ -72,47 +72,6 @@ const buttonImg = [
   { url: "img/rouletteStart.png", title: "Start", width: "20%" },
 ];
 
-// BackEndからお店のリストとジャンルを受け取る
-// 以下テスト用の暫定コード
-
-// 最大候補数を渡す
-const maxind = 17;
-
-const candList = [
-  // [id,name,genre]
-  ["aaaa0", "すき家", 4],
-  ["aaaa1", "マクドナルド", 3],
-  ["aaaa2", "吉野家", 4],
-  ["aaaa3", "あくた川", 2],
-  ["aaaa4", "キラメキ☆JAPAN", 2],
-  ["aaaa5", "ジェームズキッチン", 5],
-  ["aaaa6", "チャンピオンカレー", 5],
-  ["aaaa7", "凛屋", 5],
-  ["aaaa8", "火楓源", 0],
-  ["aaaa9", "ケンタッキー", 3],
-];
-
-const subcandList = [
-  ["aaaaa", "ラジュ", 5],
-  ["aaaab", "サコブーン", 4],
-  ["aaaac", "鳥貴族", 6],
-  ["aaaad", "ハイライト", 4],
-  ["aaaae", "松之助", 4],
-  ["aaaaf", "里乃屋", 1],
-  ["aaab0", "旅の音", 7],
-  [""],
-  [""],
-  [""],
-];
-
-var rest_cand = [];
-candList.map((cand, index) => rest_cand.push(imageAssign(cand[1], cand[2])));
-
-var sub_rest_cand = [];
-subcandList.map((cand, index) =>
-  sub_rest_cand.push(imageAssign(cand[1], cand[2]))
-);
-
 // イメージつきボタンの設定
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   disabled: "false",
@@ -185,6 +144,58 @@ export default function ButtonBases() {
   const [SNList, setSNList] = useState<string[]>([]);
   const [SNNameList, setSNNameList] = useState<string[]>([]);
   const { user } = useAuthContext();
+
+  // BackEndからお店のリストとジャンルを受け取る
+  // 以下テスト用の暫定コード
+
+  const { backendRes, setBackendRes } = useAuthContext();
+
+  var maxind = 20;
+
+  // 最大候補数を渡す
+  if (backendRes.length > 20) {
+    maxind = 20;
+  } else {
+    maxind = backendRes.length;
+  }
+
+  const candList = backendRes.slice(0, 10);
+  /*[
+  // [id,name,genre]
+  ["aaaa0", "すき家", 4],
+  ["aaaa1", "マクドナルド", 3],
+  ["aaaa2", "吉野家", 4],
+  ["aaaa3", "あくた川", 2],
+  ["aaaa4", "キラメキ☆JAPAN", 2],
+  ["aaaa5", "ジェームズキッチン", 5],
+  ["aaaa6", "チャンピオンカレー", 5],
+  ["aaaa7", "凛屋", 5],
+  ["aaaa8", "火楓源", 0],
+  ["aaaa9", "ケンタッキー", 3],
+]*/
+
+  const subcandList = backendRes.slice(10, maxind + 1);
+  /*[
+    ["aaaaa", "ラジュ", 5],
+    ["aaaab", "サコブーン", 4],
+    ["aaaac", "鳥貴族", 6],
+    ["aaaad", "ハイライト", 4],
+    ["aaaae", "松之助", 4],
+    ["aaaaf", "里乃屋", 1],
+    ["aaab0", "旅の音", 7],
+    [""],
+    [""],
+    [""],
+  ]*/
+
+  var rest_cand = [];
+  candList.map((cand, index) => rest_cand.push(imageAssign(cand[1], cand[2])));
+
+  var sub_rest_cand = [];
+  subcandList.map((cand, index) =>
+    sub_rest_cand.push(imageAssign(cand[1], cand[2]))
+  );
+
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
     if (clickedIndList.length + 10 < maxind) {

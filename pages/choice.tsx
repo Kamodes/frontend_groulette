@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useAuthContext } from "../authContext";
 
 // 画像の配置
 // %で幅の割合を指定
@@ -173,6 +174,7 @@ export default function ButtonBases() {
   const router = useRouter();
   const [clickedList, setClickedList] = useState<string[]>([]);
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
+  const { backendRes, setBackendRes } = useAuthContext();
   //クリックハンドラー
   const onClickHandler = (ind: number, key: string) => {
     if (!clickedIndList.includes(ind)) {
@@ -202,13 +204,17 @@ export default function ButtonBases() {
         .then(function (response) {
           // handle success
           console.log(response);
+          console.log("Success!");
+          setBackendRes([...backendRes, response]);
         })
         .catch(function (error) {
           // handle error
           console.log(error);
+          console.log("Error!");
         })
         .finally(function () {
           // always executed
+          console.log("I don't know...");
         });
     }
     console.log(url_str);

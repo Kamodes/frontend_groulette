@@ -12,6 +12,7 @@ export function AuthProvider({ children }) {
   const [restaurantList, setRestaurantList] = useState([]);
   const [restaurantIDList, setRestaurantIDList] = useState([]);
   const [dislike, setDislike] = useState([]);
+  const [backendRes, setBackendRes] = useState([]);
 
   const value = {
     user,
@@ -21,6 +22,8 @@ export function AuthProvider({ children }) {
     setRestaurantIDList,
     dislike,
     setDislike,
+    backendRes,
+    setBackendRes,
   };
 
   useEffect(() => {
