@@ -188,14 +188,27 @@ export default function ButtonBases() {
   ]*/
 
   var rest_cand = [];
+
+  const candListLength = candList.length;
   candList.map((cand, index) =>
     rest_cand.push(imageAssign(cand.name, cand.genre))
   );
+  if (candListLength < 10) {
+    for (var i = 0; i < 10 - candListLength; i++) {
+      rest_cand.push(imageAssign("", 99));
+    }
+  }
 
   var sub_rest_cand = [];
+  const subcandListLength = subcandList.length;
   subcandList.map((cand, index) =>
     sub_rest_cand.push(imageAssign(cand.name, cand.genre))
   );
+  if (subcandListLength < 10) {
+    for (var i = 0; i < 10 - subcandListLength; i++) {
+      sub_rest_cand.push(imageAssign("", 99));
+    }
+  }
 
   //クリックハンドラー
   const onClickHandler = (ind: number) => {
