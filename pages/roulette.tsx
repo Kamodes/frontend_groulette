@@ -98,7 +98,7 @@ const Roulette = () => {
   }, [buttonCount]);
 
   const restaurantShow = () => {
-    alert("お店は「" + foodList[arr1[200]] + "」に決定しました！");
+    alert("お店は「" + foodList[arr1[200]][1] + "」に決定しました！");
     console.log(isRoulette);
   };
 
