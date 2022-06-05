@@ -41,7 +41,6 @@ const Roulette = () => {
 
   //ルーレット
   const spin = () => {
-    console.log("isRoulette before :" + isRoulette);
     var setIV1 = setInterval(lightedItemChange, 100);
 
     const stopIV1 = () => {
@@ -63,7 +62,6 @@ const Roulette = () => {
       setLightedItem(arr1[200]);
       setButtonCount(buttonCount + 1);
       isRoulette = true;
-      console.log("isRoulette after :" + isRoulette);
     };
     setTimeout(stopIV1, 3000);
     setTimeout(setIV2, 3000);
