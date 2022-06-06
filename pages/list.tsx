@@ -229,11 +229,11 @@ export default function ButtonBases() {
       if (!clickedSNIndList.includes(ind)) {
         setClickedSNIndList([...clickedSNIndList, ind]);
         if (ind < 10) {
-          setSNList([...SNList, candList[ind][0]]);
-          setSNNameList([...SNNameList, candList[ind][1]]);
+          setSNList([...SNList, candList[ind].place_id]);
+          setSNNameList([...SNNameList, candList[ind].name]);
         } else {
-          setSNList([...SNList, subcandList[ind - 10][0]]);
-          setSNNameList([...SNNameList, subcandList[ind - 10][1]]);
+          setSNList([...SNList, subcandList[ind - 10].place_id]);
+          setSNNameList([...SNNameList, subcandList[ind - 10].name]);
         }
       }
     } else {
