@@ -25,7 +25,7 @@ const Dislike = () => {
   }, []);
   return (
     <ul className="flex-row basis-2/3">
-      {dislike.map((name: string) => (
+      {Array.from(new Set(dislike)).map((name: string) => (
         <li key={name} className="text-center ">
           <>{name}</>
         </li>
