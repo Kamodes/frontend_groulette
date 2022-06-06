@@ -175,6 +175,14 @@ export default function ButtonBases() {
   const [clickedList, setClickedList] = useState<string[]>([]);
   const [clickedIndList, setClickedIndList] = useState<number[]>([]);
   const { backendRes, setBackendRes } = useAuthContext();
+  //backendResをシャッフルする関数
+  const shuffle = ([...array]) => {
+    for (let i = array.length - 1; i >= 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
   //クリックハンドラー
   const onClickHandler = (ind: number, key: string) => {
     if (!clickedIndList.includes(ind)) {
@@ -205,7 +213,7 @@ export default function ButtonBases() {
           // handle success
           console.log(response);
           console.log("Success!");
-          setBackendRes(response.data);
+          setBackendRes(shuffle(response.data));
         })
         .catch(function (error) {
           // handle error

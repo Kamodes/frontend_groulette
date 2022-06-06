@@ -375,7 +375,14 @@ export default function ButtonBases() {
             }}
           >
             <ImageSrc
-              style={{ backgroundImage: `url(${sub_rest_cand[index].url})` }}
+              style={{
+                backgroundImage:
+                  (!clickedIndList.includes(index + 10) &&
+                    index < clickedIndList.length) ||
+                  clickedIndList.includes(index + 10)
+                    ? `url(${sub_rest_cand[index].url})`
+                    : `url(${"img/list_icon/none.png"})`,
+              }}
             />
             <ImageBackdrop
               className="MuiImageBackdrop-root"
@@ -396,12 +403,19 @@ export default function ButtonBases() {
               <Typography
                 component="span"
                 variant="h5"
-                color="black"
                 sx={{
                   position: "relative",
                   p: 4,
                   pt: 2,
                   pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                }}
+                style={{
+                  color:
+                    (!clickedIndList.includes(index + 10) &&
+                      index < clickedIndList.length) ||
+                    clickedIndList.includes(index + 10)
+                      ? "black"
+                      : "#808080",
                 }}
               >
                 {sub_rest_cand[index].title}
